@@ -1,0 +1,463 @@
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"
+""" My (Evgeny Bachinin) .vimrc file
+"
+""" Main target: for creating usefull IDE-textEditor
+"
+""" Version 0.1
+""" Date 21.04.2013
+"
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Vim Plugins: Vundle (it's pathogen on steroids -
+" https://github.com/VundleVim/Vundle.vim) put at the top of vimrc
+" https://github.com/Valloric/YouCompleteMe/blob/master/README.md#installation
+" http://unixnme.blogspot.ru/2017/03/how-to-install-youcompleteme-vim-plugin.html
+" https://jonasdevlieghere.com/a-better-youcompleteme-config/
+" https://github.com/Valloric/ycmd/blob/master/cpp/ycm/.ycm_extra_conf.py
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+set nocompatible              " be iMproved, required
+
+" 'vim-plug' plugin manager automatic installation
+" https://github.com/junegunn/vim-plug/wiki/tips#automatic-installation
+if empty(glob('~/.vim/autoload/plug.vim'))
+  silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
+    \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+  autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+endif
+
+" Vim-Plug: Specify a directory for plugins
+" - For Neovim: stdpath('data') . '/plugged'
+" - Avoid using standard Vim directory names like 'plugin'
+call plug#begin('~/.vim/plugged')
+Plug 'junegunn/fzf', { 'dir': '~/bin/fzf', 'do': './install --all' }
+Plug 'junegunn/fzf.vim'
+Plug 'tpope/vim-surround'
+
+".... code completion ......
+"Plug 'ycm-core/YouCompleteMe', { 'do': './install.py --clangd-completer' }
+
+" coc.nvim uses jsonc as configuration file format, the same as VSCode.
+" It's json that supports comments. To get correct comment highlighting,
+" you can install vim-jsonc (which has built-in support for coc-settings.json)
+Plug 'kevinoid/vim-jsonc'
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
+"...........................
+
+" vim-printf pluging re-map somehow n and N key bindings
+"Plug 'mptre/vim-printf'
+Plug 'majutsushi/tagbar'
+"Plug 'dense-analysis/ale' !!!not needed because coc.nvim::clangd can show errors, too
+Plug 'terryma/vim-multiple-cursors'
+" To fix error: E185: Cannot find color scheme 'gruvbox', because I use
+" gruvbox in my vimrc
+Plug 'morhetz/gruvbox'
+Plug 'preservim/nerdtree'
+
+" vim-fugitive is needed at least for displaying git-branch in the status line
+" of vim-airline plugin. Place it before vim-airline
+" N.B.: latest vim-fugitive does not work with vim-airline, i.e. git-branch is
+" not displayed, error appears, see 'You do not see the current Git branch' by
+" the link: https://github.com/vim-airline/vim-airline/wiki/FAQ
+Plug 'tpope/vim-fugitive', { 'tag': 'v2.3' }
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
+Plug 'bronson/vim-trailing-whitespace'
+" Hexmode - Hex editing in Vim
+Plug 'fidian/hexmode'
+" Colorize all text in the form #rgb, #rgba, #rrggbb, #rrgbbaa
+Plug 'lilydjwg/colorizer'
+" Provides start screen for vim of Most Recently Used files
+Plug 'mhinz/vim-startify'
+
+" TODO: try the following plugins:
+" Extends 'mksession' functionality
+"Plug 'xolox/vim-session'
+" Shows key bindings
+"Plug 'liuchengxu/vim-which-key'
+" Easy motion
+"Plug 'justinmk/vim-sneak'
+"....... Icons .....
+" vim-devicons is needed for vim-nerdtree-syntax-highlight
+"Plug 'ryanoasis/vim-devicons'
+"Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
+"...................
+call plug#end()
+filetype plugin indent on    " required
+
+" Vundle related -- start
+"filetype off                  " required
+"" set the runtime path to include Vundle and initialize
+"set rtp+=~/.vim/bundle/Vundle.vim
+"call vundle#begin()
+"" alternatively, pass a path where Vundle should install plugins
+""call vundle#begin('~/some/path/here')
+"
+"" let Vundle manage Vundle, required
+"Plugin 'VundleVim/Vundle.vim'
+"Plugin 'Valloric/YouCompleteMe'
+"
+"" All of your Plugins must be added before the following line
+"call vundle#end()            " required
+"filetype plugin indent on    " required
+"" To ignore plugin indent changes, instead use:
+""filetype plugin on
+" Vundle related -- end
+
+"
+" Brief help
+" :PluginList       - lists configured plugins
+" :PluginInstall    - installs plugins; append `!` to update or just :PluginUpdate
+" :PluginSearch foo - searches for foo; append `!` to refresh local cache
+" :PluginClean      - confirms removal of unused plugins; append `!` to auto-approve removal
+"
+" see :h vundle for more details or wiki for FAQ
+" Put your non-Plugin stuff after this line
+""""""""""""""""  Vundle end
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" YouCompleteMe - Bachinin
+"
+" Useful links:
+" https://stackoverflow.com/questions/24500281/youcompleteme-and-syntastic-compatibility?utm_medium=organic&utm_source=google_rich_qa&utm_campaign=google_rich_qa
+" https://vi.stackexchange.com/questions/7894/how-to-disable-youcompletemes-error-checking
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"let g:ycm_global_ycm_extra_conf = '~/.vim/.ycm_extra_conf.py'
+"" disable showing od WCM errors in vim buffer
+"let g:ycm_show_diagnostics_ui = 0	" default 1
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => General
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Set the VIM  History Length
+set history=1000
+
+" Set to auto reed when a file is changed from the outside
+set autoread
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Files, backups & undo
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Turn backup off, since most stuff is in Git, SVN, etc
+set nobackup
+" ???
+set nowb
+" ???
+set noswapfile
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Colors & Fonts
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+syntax enable
+
+" Set utf8 as standard encoding & en_US as the std. language
+" utf8 or utf-8 ???????????????????
+set encoding=utf8
+
+" enable 256 colors (terminator must be adjuxted to support 256 colors)
+set t_Co=256
+" Color scheme in GVIM
+" good examples: gruvbox, minimalist, pablo, slate, desert
+" gruvbox must be set like
+"    color gruvbox
+"    set bg=dark
+
+color gruvbox
+set bg=dark
+" color desert
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => VIM User Interface
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Highlight search result
+set hlsearch
+
+" Ignore case when searching
+set ignorecase
+
+" When searching try to be smart about cases
+set smartcase
+
+" Make search act like search in modern browsers:
+" search as you type
+set incsearch
+
+" Don't move a cursor while searchin via '*'
+nnoremap * *N
+
+" Ignore all whitespace & sync
+"set diffopt=filter,iwhite -some  error in this line
+
+" Always show current position: line # & cursor position
+set ruler
+
+" Display lines number in source code
+set number
+
+" Display incomplete commands
+set showcmd
+
+
+" Show matching brackets when text indicator is over them
+set showmatch
+" How many tenths of a second to blink when matching brackets
+set mat=2
+
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Text, tab & indent
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" 1 tab == 4 spaces
+" set shiftwidth=4
+" set tabstop=4
+
+" Be smart when using tab ;)
+" set smarttab
+
+" Use spaces instead of tab
+" Tabs should be converted to a group of 4 spaces.
+" This is the official Python conversion
+" set expandtab
+
+" Automatically indent when adding a curly braket, etc.
+" set smartindent
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => IDE like tricks
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" To use: 'z-a' buttons combo
+set foldmethod=syntax
+set foldlevel=20
+
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Vim Plugins: pathogen - REMOVE ME - I use vim-plug since 2020Y
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"execute pathogen#infect()
+"call pathogen#helptags()
+"""" pathogen#incubate() is used to replace pathogen#runtime_append_all_bundles()
+"""" call pathogen#runtime_append_all_bundles()
+"call pathogen#incubate()
+
+filetype off
+syntax on
+filetype plugin indent on
+
+" mark syntax errors with :signs
+let g:syntastic_enable_signs = 1
+let g:syntastic_error_symbol = '✗'
+let g:syntastic_warning_symbol = '⚠'
+" automatically jump to the error when saving the file
+let g:syntastic_auto_jump = 0
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 1
+let g:syntastic_aggregate_errors = 1
+let g:syntastic_enable_highlighting = 1
+" Syntastic doesn't cope well with errors in the included files. So the
+" following flag permit to omit these errors
+" https://github.com/scrooloose/syntastic/issues/676
+" If not: so we could not open the .c file if in corresponding header
+" there are errors
+let g:syntastic_c_remove_include_errors = 1
+
+" Auto-open/close error window
+let g:syntastic_auto_loc_list=1 " or 2 for only auto-close
+let g:syntastic_sh_checkers=['sh', 'checkbashisms', 'shellcheck']
+" Adjust defaults for different modes:
+let g:syntastic_mode_map={ 'mode': 'active',
+                           \ 'active_filetypes': ['c', 'sh'],
+                           \ 'passive_filetypes': [] }
+" or let b:shell = 'bash'
+" see http://habrahabr.ru/post/108564/
+let b:shell='sh'
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Vim Plugins: CommandT
+" https://stackoverflow.com/questions/15129887/command-t-not-finding-files
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Increase amount of max indexed files by CommandT plugin
+"let g:CommandTMaxFiles=200000
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => My Adjustments
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" From Dinislam
+" CTRL-N to view grep results. after press g-F (g-shift+f) to go to found place
+" CTRL-o and CTRL-i to jump to the older or newer position
+nnoremap <Leader>n :let _=expand("<cword>")<CR>
+              \:tabedit<CR>
+              \:execute("r !git grep -wn "._)<CR>
+              \:setlocal buftype=nofile<CR>
+              \:setlocal bufhidden=hide<CR>
+              \:setlocal noswapfile<CR>
+              \ggdd<CR>
+
+vnoremap <Leader>n :<ESC>
+              \:let _name=@%<CR>
+              \:let _begin=line("'<")<CR>
+              \:let _end=line("'>")<CR>
+              \:tabedit<CR>
+              \:execute("r !git blame "._name." -L"._begin.","._end)<CR>
+              \:setlocal buftype=nofile<CR>
+              \:setlocal bufhidden=hide<CR>
+              \:setlocal noswapfile<CR>
+              \ggdd<CR>
+
+" From Dinislam
+" This hack permits opening file as grep output:
+" vim src/extension/root_task_root_ta.c:2786
+autocmd BufNewFile *:[1-9]* execute "edit +".split(@%,':')[1] escape(split(@%,':')[0],' ') |
+			\ execute "filetype detect"
+
+"""""""""""""""""""""""""""""
+" => My mappings
+""""""""""""""""""""""""""""
+" on remote env defualt ctags mappint C-] does not have mapping,
+" fix it: https://stackoverflow.com/a/11565329
+nnoremap <C-]> <C-]>
+
+" To make vsplit put the new buffer on the right of the current buffer
+" o make split put the new buffer below the current buffer: set splitbelow
+set splitright
+
+" Spell checking
+" https://www.linux.com/learn/using-spell-checking-vim
+" http://vimdoc.sourceforge.net/htmldoc/spell.html
+" http://funix.ru/programs_utilities/proverka-orfografii-v-vim.html
+" set for all opened files in vim:
+" set spell spelllang=en_us
+" For only current opened buffer:
+" setlocal spell spelllang=en_us
+" -----------------------------------------------------------------------------------
+
+" --------- coc.nvim code completion plugin usage and setup -------------------------
+" Project setup for use of code completion: https://releases.llvm.org/8.0.0/tools/clang/tools/extra/docs/clangd/Installation.html#project-setup
+" $ make clean; bear make
+"     Bear is a tool that generates a compile_commands.json file by recording a complete build.
+
+" --------- coc.nvim mappings -------------------------
+" GoTo code navigation.
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gy <Plug>(coc-type-definition)
+nmap <silent> gi <Plug>(coc-implementation)
+nmap <silent> gr <Plug>(coc-references)
+
+" Use tab for trigger completion with characters ahead and navigate.
+" NOTE: Use command ':verbose imap <tab>' to make sure tab is not mapped by
+" other plugin before putting this into your config.
+inoremap <silent><expr> <TAB>
+      \ pumvisible() ? "\<C-n>" :
+      \ <SID>check_back_space() ? "\<TAB>" :
+      \ coc#refresh()
+inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+" AFAIU, this function let to work TAB when it is was re-maped recentely to complete
+" completion
+function! s:check_back_space() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~# '\s'
+endfunction
+
+" Use <c-space> to trigger completion.
+inoremap <silent><expr> <c-space> coc#refresh()
+
+" Use <cr> to confirm completion, `<C-g>u` means break undo chain at current
+" position. Coc only does snippet and additional edit on confirm.
+if has('patch8.1.1068')
+  " Use `complete_info` if your (Neo)Vim version supports it.
+  inoremap <expr> <cr> complete_info()["selected"] != "-1" ? "\<C-y>" : "\<C-g>u\<CR>"
+else
+  imap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+endif
+
+" Use `[g` and `]g` to navigate diagnostics
+nmap <silent> [g <Plug>(coc-diagnostic-prev)
+nmap <silent> ]g <Plug>(coc-diagnostic-next)
+
+" Use K to show documentation in preview window.
+nnoremap <silent> K :call <SID>show_documentation()<CR>
+
+function! s:show_documentation()
+  if (index(['vim','help'], &filetype) >= 0)
+    execute 'h '.expand('<cword>')
+  else
+    call CocAction('doHover')
+  endif
+endfunction
+
+" Highlight the symbol and its references when holding the cursor.
+autocmd CursorHold * silent call CocActionAsync('highlight')
+
+" Symbol renaming.
+nmap <leader>rn <Plug>(coc-rename)
+
+" Formatting selected code.
+xmap <leader>f  <Plug>(coc-format-selected)
+nmap <leader>f  <Plug>(coc-format-selected)
+
+
+" --------- coc.nvim settings -------------------------
+" TextEdit might fail if hidden is not set.
+set hidden
+
+" Give more space for displaying messages.
+set cmdheight=2
+
+" Some servers have issues with backup files, see #649.
+set nobackup
+set nowritebackup
+
+" Having longer updatetime (default is 4000 ms = 4 s) leads to noticeable
+" delays and poor user experience.
+set updatetime=300
+
+" Don't pass messages to |ins-completion-menu|.
+set shortmess+=c
+
+" Always show the signcolumn, otherwise it would shift the text each time
+" diagnostics appear/become resolved.
+set signcolumn=yes
+" -----------------------------------------------------------------------------------
+
+" --------- fzf fuzzy searcher ---------
+" https://github.com/junegunn/fzf/blob/master/README-VIM.md
+let g:fzf_layout = { 'up': '~40%' }
+" Customize fzf colors to match your color scheme
+" - fzf#wrap translates this to a set of `--color` options
+let g:fzf_colors =
+\ { 'fg':      ['fg', 'Normal'],
+  \ 'bg':      ['bg', 'Normal'],
+  \ 'hl':      ['fg', 'Comment'],
+  \ 'fg+':     ['fg', 'CursorLine', 'CursorColumn', 'Normal'],
+  \ 'bg+':     ['bg', 'CursorLine', 'CursorColumn'],
+  \ 'hl+':     ['fg', 'Statement'],
+  \ 'info':    ['fg', 'PreProc'],
+  \ 'border':  ['fg', 'Ignore'],
+  \ 'prompt':  ['fg', 'Conditional'],
+  \ 'pointer': ['fg', 'Exception'],
+  \ 'marker':  ['fg', 'Keyword'],
+  \ 'spinner': ['fg', 'Label'],
+  \ 'header':  ['fg', 'Comment'] }
+" -----------------------------------------------------------------------------------
+
+"--------- vim-airline ------------
+let g:airline_theme='dark'
+" Automatically displays all buffers when there's only one tab open
+let g:airline#extensions#tabline#enabled = 1
+" Tabline separators: how tabs are depicted at the top of vim buffer
+let g:airline#extensions#tabline#left_sep = '>'
+let g:airline#extensions#tabline#left_alt_sep = '|'
+"
+let g:airline#extensions#hunks#enabled=0
+" Force to show git-branch in status line (at the left)
+let g:airline#extensions#branch#enabled=1
+" Force airline status line on top, permitting other plugins to use status
+" line at the bottom
+let g:airline_statusline_ontop=0
+" -----------------------------------------------------------------------------------
+
+" Keys Bindings
+" Shift+k - shows man for function under cursor (standard)
+" Leader+n (normal) - view grep results. after press g-F (g-shift+f) to go to found place (Dinislam)
+" Leader+n (visual) - select line[s] by visual selection block, type combo and
+"                     get git blame
+" CTRL-o -  jump to the older position in ?buffer history? (Standard)
+" CTRL-i - jump to the  newer position (Standard)
