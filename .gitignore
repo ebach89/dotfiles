@@ -1,0 +1,2 @@
+# Swap files: last char is increased if sw* file already exists
+[._]*.sw[a-p]
