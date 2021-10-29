@@ -1,0 +1,87 @@
+# espanso configuration file
+
+# This is the default configuration file, change it as you like it
+# You can refer to the official documentation:
+# https://espanso.org/docs/
+
+# Matches are the substitution rules, when you type the "trigger" string
+# it gets replaced by the "replace" string.
+
+# Global variables, which can be used in any matches below.
+global_vars:
+  - name: "CUR_YEAR"
+    type: "shell"
+    params:
+      cmd: "date +\"%Y\""
+
+matches:
+
+  # Simple text replacement
+  - trigger: ":espanso"
+    replace: "Hi there!"
+
+  # Dates
+  - trigger: ":date"
+    replace: "{{mydate}}"
+    vars:
+      - name: mydate
+        type: date
+        params:
+          format: "%m/%d/%Y"
+
+  # Shell commands
+  - trigger: ":shell"
+    replace: "{{output}}"
+    vars:
+      - name: output
+        type: shell
+        params:
+          cmd: "echo Hello from your shell"
+
+  # FIXME: under investigation how to call shell script
+  # Seems, espanso's PWD == folder where default.yml os located,
+  # instead of PWD from where espanso's command is invoked
+  - trigger: ":task"
+    replace: "{{output}}"
+    vars:
+      - name: output
+        type: shell
+        params:
+          #cmd: "git rev-parse --abbrev-ref HEAD | awk '{ split($1, array, '_'); print array[1]}'"
+          cmd: "echo PWD:$PWD; echo $(parse_git_branch)"
+          debug: true
+
+  # Temporal template: to place into GIT commit body
+  - trigger: "$t"
+    replace: "Task: JIRA-42"
+
+  - trigger: "$c-test"
+    replace: |
+              #include <stdlib.h>
+              #include <strings.h>
+
+              int main(int argc, char *argv[])
+              {
+                  (void)argc;
+                  (void)argv;
+                  return 0;
+              }
+
+  - trigger: "$showpatch"
+    replace: |
+              Review: 
+              Description: 
+
+  # Copyrights. TODO: can we use choice at run-time, to choose language
+  - trigger: "$copyr-c"
+    replace: |
+              /*
+               * Copyright © {{CUR_YEAR}} blabla. All rights reserved.
+               *
+               * Additional text
+               */
+  - trigger: "$copyr-sh"
+    replace: |
+              # Copyright © {{CUR_YEAR}} blabla. All rights reserved.
+              #
+              # Additional text
