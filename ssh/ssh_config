@@ -1,0 +1,3 @@
+Host github.com
+    User ebach89
+    IdentityFile ~/privkey_fullpath
