@@ -51,6 +51,11 @@ matches:
           cmd: "echo PWD:$PWD; echo $(parse_git_branch)"
           debug: true
 
+  - trigger: ":BR"
+    replace: |
+              Best regards,
+              Evgeny Bachinin
+
   # Temporal template: to place into GIT commit body
   - trigger: "$t"
     replace: "Task: JIRA-42"
