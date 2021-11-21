@@ -459,6 +459,11 @@ let g:airline#extensions#branch#enabled=1
 let g:airline_statusline_ontop=0
 " -----------------------------------------------------------------------------------
 
+"--------- NERDTree ------------
+" Display hidden files by default
+let NERDTreeShowHidden=1
+" -----------------------------------------------------------------------------------
+
 " Keys Bindings
 " Shift+k - shows man for function under cursor (standard)
 " Leader+n (normal) - view grep results. after press g-F (g-shift+f) to go to found place (Dinislam)
