@@ -1,0 +1,22 @@
+# Add these aliases into [alias] section of git config
+[alias]
+	# From here:
+	# http://josephhsu.com/post/2582726215/open-all-modified-files-tracked-by-git-in-default
+	# http://stackoverflow.com/questions/28280635/how-to-open-all-modified-files-with-git
+	# http://www.commandlinefu.com/commands/view/12248/open-in-vim-all-modified-files-in-a-git-repository#comment
+	edit-last-commit = !vim -p $(git diff --name-only HEAD^)
+	edit-modified = !vim -p $(git status -uno --porcelain | awk '{print $2}')
+	# from here: http://jondavidjohn.com/git-aliases-parameters/
+	# http://stackoverflow.com/a/3322412/2794959
+	# Usage:
+	# git edit-commit <SHA-commit>
+	edit-commit = "!f() { vim -p $(git diff --name-only $1^ $1); }; f"
+	# git edit-in-range <from> <to>
+	edit-in-range = "!f() { vim -p $(git diff --name-only $1^ $2); }; f"
+
+	history = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an, %ae>%Creset' --abbrev-commit
+    # from https://stackoverflow.com/a/5188364
+	# RBR = Remote Branches History
+	rbr-history = for-each-ref --sort=-committerdate refs/remotes/ --format='%(HEAD) %(color:yellow)%(refname:short)%(color:reset) - %(color:red)%(objectname:short)%(color:reset) - %(color:cyan)%(contents:subject)%(color:reset) - %(color:magenta)    %(authorname)%(color:reset) (%(color:green)%(committerdate:relative)%(color:reset))'
+    # LBR = Local Branches History
+	lbr-history = for-each-ref --sort=-committerdate refs/heads/ --format='%(HEAD) %(color:yellow)%(refname:short)%(color:reset) - %(color:red)%(objectname:short)%(color:reset) - %(color:cyan)%(contents:subject)%(color:reset) - %(color:magenta)%(authorname)%(color:reset) (%(color:green)%(committerdate:relative)%(color:reset))'
