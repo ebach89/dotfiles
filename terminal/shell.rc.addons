@@ -1,3 +1,6 @@
 # Addons for terminal's "Run Commands" scripts such as .bashrc, .zshrc, etc.
 # This script must be written in common way to support different interpreters.
 # Source this files from inside rc-scripts (bashrc, etc)
+
+# fix RU locale issue: do not want RU in terminal:
+export LC_ALL=C
