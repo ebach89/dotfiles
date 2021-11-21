@@ -396,6 +396,7 @@ nmap <leader>f  <Plug>(coc-format-selected)
 
 " --------- coc.nvim settings -------------------------
 " TextEdit might fail if hidden is not set.
+" Some info: https://github.com/neoclide/coc.nvim/issues/2014
 set hidden
 
 " Give more space for displaying messages.
