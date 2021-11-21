@@ -90,3 +90,16 @@ matches:
               # Copyright © {{CUR_YEAR}} blabla. All rights reserved.
               #
               # Additional text
+
+
+  # My words autocorrections
+  # TODO: think to contribute to misspell-en package
+  - trigger: "fidn"
+    replace: "find"
+    propagate_case: true
+    word: true
+
+  - trigger: "gti"
+    replace: "git"
+    propagate_case: true
+    word: true
