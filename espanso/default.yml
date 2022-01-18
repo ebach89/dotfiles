@@ -78,6 +78,9 @@ matches:
               Description: 
               Checked on: 
 
+  - trigger: ":grep"
+    replace: "grep -TIREins \"\" *"
+
   # Copyrights. TODO: can we use choice at run-time, to choose language
   - trigger: "$copyr-c"
     replace: |
