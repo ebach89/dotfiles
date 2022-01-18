@@ -76,6 +76,7 @@ matches:
     replace: |
               Review: 
               Description: 
+              Checked on: 
 
   # Copyrights. TODO: can we use choice at run-time, to choose language
   - trigger: "$copyr-c"
