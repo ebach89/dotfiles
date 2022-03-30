@@ -285,7 +285,10 @@ let b:shell='sh'
 " CTRL-o and CTRL-i to jump to the older or newer position
 nnoremap <Leader>n :let _=expand("<cword>")<CR>
               \:tabedit<CR>
-              \:execute("r !grep -TIREnws --exclude=tags --exclude=*.out --exclude=*.patch --exclude=*.log *"._)<CR>
+              \:execute("r !grep -TIREnws
+                         \ --exclude=tags --exclude=*.out --exclude=*.patch
+                         \ --exclude=*.log --exclude-dir=.git
+                         \ --exclude-dir=build *"._)<CR>
               \:setlocal buftype=nofile<CR>
               \:setlocal bufhidden=hide<CR>
               \:setlocal noswapfile<CR>
