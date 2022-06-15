@@ -221,6 +221,9 @@ set mat=2
 " Automatically indent when adding a curly braket, etc.
 " set smartindent
 
+" Line length marker
+set colorcolumn=81
+
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => IDE like tricks
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
