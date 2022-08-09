@@ -207,6 +207,7 @@ set mat=2
 " => Text, tab & indent
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " 1 tab == 4 spaces
+" You can do manually: :set sw=4 et ts=4
 " set shiftwidth=4
 " set tabstop=4
 
