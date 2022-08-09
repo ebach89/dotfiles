@@ -14,6 +14,9 @@ parse_git_branch() {
 }
 export PS1="${debian_chroot:+($debian_chroot)}\[\e[0;32m\]\u@\h\[\e[m\]\[\e[1;34m\]:\w\[\e[m\] \[\e[1;32m\]\$(parse_git_branch)\[\e[m\]\[\e[4;32m\]\$\[\e[m\] "
 
+####### Aliases
+alias vim="nvim"
+
 ########################
 ####### Useful functions
 ########################
