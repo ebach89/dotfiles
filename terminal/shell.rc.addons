@@ -39,3 +39,15 @@ grepvim() {
     exclude_pattern+="--exclude-dir=.git --exclude-dir=build"
     grep -TIREins $exclude_pattern "$search_pattern" * | vim -c "setlocal buftype=nowrite" -c "setlocal bufhidden=hide" -c "setlocal noswapfile" - +/"$search_pattern"
 }
+
+rgMKvim() {
+    local search_pattern="$1"
+    local rg_opts="--stats -tamake -tcmake -tmake -treadme -ttxt -tsh -tpy --vimgrep"
+    rg $rg_opts "$search_pattern" * | vim -c "setlocal buftype=nowrite" -c "setlocal bufhidden=hide" -c "setlocal noswapfile" - +/"$search_pattern"
+}
+
+rgCvim() {
+    local search_pattern="$1"
+    local rg_opts="--stats --vimgrep -tc -tcpp -tjava"
+    rg $rg_opts "$search_pattern" * | vim -c "setlocal buftype=nowrite" -c "setlocal bufhidden=hide" -c "setlocal noswapfile" - +/"$search_pattern"
+}
